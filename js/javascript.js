@@ -81,7 +81,7 @@
         // Increase or decrease timer
         $('.breakLength i').on('click', updateBreakLength);
         $('.sessionLength i').on('click', updateSessionLength);
-        $('#circle').on('click', clickOnTimer);
+        $('#countdown').on('click', clickOnTimer);
     }
 
   $( document ).ready(function() {
