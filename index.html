@@ -2,10 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/style.css">
-  <title>Calculator</title>
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">  
+  <title>Pomodor Clock</title>
 </head>
 <body>
+
+  <div class="main">
+    
+    <h1>Pomodoro Clock</h1>
+    <p>
+      Simply set a duration for your pomodoro and break and click on the circle in the middle. <br>
+      As soon as the pomodor ends you will hear a sound and the break timer will start.<br>
+      After the break your next pomodoro will start and so on.<br>
+      This cycle will repeat until you close the tab or click on the circle again.<br>
+    </p>
+    <div class="wrapper">
+        <div class="session-control">        
+          <div class="breakLength">
+          <p>Break Control</p>
+            <i id="breakdown" class="fa fa-chevron-left button"></i>
+            <span class="break-duration duration"></span>
+            <i id="breakup" class="fa fa-chevron-right button"></i>
+          </div>
+          <div class="sessionLength">
+          <p>Time Control</p>
+            <i id="sessiondown" class="fa fa-chevron-left button"></i>      
+            <span class="session-duration duration"></span>
+            <i id="sessionup" class="fa fa-chevron-right button"></i>
+          </div>
+        </div>
+        <div id="countdown">
+          <div id="circle">
+            <p class="time"></p>
+            </div>
+          </div>
+        </div>
+      
+
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="js/javascript.js"></script>
 </body>
 </html>
