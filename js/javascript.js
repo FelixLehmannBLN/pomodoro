@@ -3,8 +3,8 @@
 
     "use strict"
     // set default times at 25 and 5
-    var $breakLength = 1,
-        $sessionLength = 1,
+    var $breakLength = 5,
+        $sessionLength = 25,
         $seconds = $sessionLength*60, 
         $timeRunning = false,
         $runTimer,
@@ -68,12 +68,14 @@
     function toggleSession() {
       if ($focus == "session") {
         $focus = "break";
-        $('#circle').css("background-color", "rgb(255,0,0)" );
+        $('#countdown').css("border", "2px solid rgb(150,0,70)" );
         $seconds = $breakLength*60;
+         $('.focus').text("Break");
       } else {
         $focus = "session";
-        $('#circle').css("background-color", "rgb(0,255,0)" );
+        $('#countdown').css("background-color", "rgb(0,255,0)" );
         $seconds = $sessionLength*60;
+        $('.focus').text("Session");
       }
     }
 
@@ -88,6 +90,7 @@
     $('.session-duration').text(""+$sessionLength);
     $('p.time').text(setDuration(""+$seconds));
     $('.break-duration').text(""+$breakLength);
+    $('.focus').text("Session");
     bindings();
   });
 
