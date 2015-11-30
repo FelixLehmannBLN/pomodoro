@@ -2,19 +2,21 @@
 
     "use strict"
     // set default times at 25 and 5
-    var $breakLength = 5,
-        $sessionLength = 25,
-        $seconds = $sessionLength*60, 
-        $timeRunning = false,
-        $runTimer,
-        $displayTimer = $('p.time'),
+    var $t, $h, $m, $s, /* variables for time units*/
+        $breakLength = 5, /*default break lenght*/
+        $sessionLength = 25, /*default sessions length*/
+        $seconds = $sessionLength*60,
+        $timeRunning = false, /* timer is on hold by default*/
+        $runTimer, /* varibale for funtion expression for timer interval */
+        $displayTimer = $('p.time'), 
         $focusParagraph = $('.focus'),
         $breakDurationSpan = $('.break-duration'),
         $sessionDurationSpan = $('.session-duration'),
         $breakButtons = $('.breakLength').children('i'),
         $sessionButtons = $('.sessionLength').children('i'),
         $countdownDiv = $('#countdown'),
-        $focus = "session";
+        $resetButton = $('#resetButton'),
+        $focus = "session"; 
   
     // set time by clicking arrows
     function updateBreakLength () {
@@ -26,7 +28,7 @@
             $breakLength -= 1;
         }
       }
-      $('.break-duration').text(Math.max(0, $breakLength));
+      $breakDurationSpan.text(Math.max(0, $breakLength));
     }
 
     function updateSessionLength () {
@@ -39,15 +41,15 @@
           }
         }
       $seconds = Math.max(0, $sessionLength*60);
-      $('.session-duration').text(Math.max(0, $sessionLength));
+      $sessionDurationSpan.text(Math.max(0, $sessionLength));
       $displayTimer.text(setDuration($seconds));
     }
 
     function setDuration (time) {
-      var $t =  Number(time);
-      var $h = Math.floor($t / 3600);
-      var $m = Math.floor($t % 3600 / 60);
-      var $s = Math.floor($t % 3600 % 60 );
+      $t =  Number(time);
+      $h = Math.floor($t / 3600);
+      $m = Math.floor($t % 3600 / 60);
+      $s = Math.floor($t % 3600 % 60 );
       return (
         ($h > 0 ? $h+ ":" + ($m < 10 ? "0" : "") : "") + $m + ":" + ($s < 10 ? "0" : "") + $s
         );
@@ -91,10 +93,15 @@
       }
     }
 
+    function reset () {
+      window.location.reload();
+    }
+
     function bindings () {
         $breakButtons.on('click', updateBreakLength);
         $sessionButtons.on('click', updateSessionLength);
         $countdownDiv.on('click', clickOnTimer);
+        $resetButton.on('click', reset);
     }
 
   $( document ).ready(function() {

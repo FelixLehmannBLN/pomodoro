@@ -54,15 +54,15 @@ h1 {
           padding-right: 30px;
         }
 
-    .minus, .plus {
-      color: white;
-      border: none;
-      cursor: pointer;
-      outline: none;
-    }
-    .minus:hover, .plus:hover {
-      font-size: 1.1em;
-    }
+      .minus, .plus {
+        color: white;
+        border: none;
+        cursor: pointer;
+        outline: none;
+      }
+        .minus:hover, .plus:hover {
+          font-size: 1.1em;
+        }
 
 
 .duration {
@@ -88,20 +88,20 @@ h1 {
     color: white;
   }
 
-  #countdown:hover {    
-    border: 3px solid rgb(0,255,0);  
-  }
-
-  #countdown:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      border-radius: 50%;
-      z-index: 2;
+    #countdown:hover {    
+      border: 3px solid rgb(0,255,0);  
     }
+
+    #countdown:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 50%;
+        z-index: 2;
+      }
 
 .focus {
     text-align: center;
@@ -118,4 +118,13 @@ h1 {
     right: 0;
     left: 0;
     z-index: -1;
+  }
+
+  button {
+    margin-top: 30px;
+    padding: 1em;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
