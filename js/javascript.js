@@ -1,5 +1,4 @@
-  
-(function ($) {
+ (function ($) {
 
     "use strict"
     // set default times at 25 and 5
@@ -9,6 +8,12 @@
         $timeRunning = false,
         $runTimer,
         $displayTimer = $('p.time'),
+        $focusParagraph = $('.focus'),
+        $breakDurationSpan = $('.break-duration'),
+        $sessionDurationSpan = $('.session-duration'),
+        $breakButtons = $('.breakLength').children('i'),
+        $sessionButtons = $('.sessionLength').children('i'),
+        $countdownDiv = $('#countdown'),
         $focus = "session";
   
     // set time by clicking arrows
@@ -49,6 +54,8 @@
     }
 
     function clickOnTimer() {
+      // call function once to avoid delay, then set interval
+      updateTimer(); 
       if ($timeRunning === false){
         $timeRunning = true;
         $runTimer = setInterval(function() {
@@ -66,54 +73,36 @@
       if ($seconds <= 0){
        toggleSession();
       }
-      $displayTimer.text(setDuration($seconds));    
       $seconds -= 1;
+      $displayTimer.text(setDuration($seconds));    
     }
 
     function toggleSession() {
       if ($focus == "session") {
         $focus = "break";
-        $('#countdown').css("border", "2px solid rgb(150,0,70)" );
+        $countdownDiv.css("border", "2px solid rgb(150,0,70)" );
         $seconds = $breakLength*60;
-         $('.focus').text("Break");
+        $focusParagraph.text("Break");
       } else {
         $focus = "session";
-        $('#countdown').css("border", "2px solid rgb(0,255,0)" );
+        $countdownDiv.css("border", "2px solid rgb(0,255,0)" );
         $seconds = $sessionLength*60;
-        $('.focus').text("Session");
+        $focusParagraph.text("Session");
       }
     }
 
     function bindings () {
-        // Increase or decrease timer
-        $('.breakLength i').on('click', updateBreakLength);
-        $('.sessionLength i').on('click', updateSessionLength);
-        $('#countdown').on('click', clickOnTimer);
+        $breakButtons.on('click', updateBreakLength);
+        $sessionButtons.on('click', updateSessionLength);
+        $countdownDiv.on('click', clickOnTimer);
     }
 
   $( document ).ready(function() {
-    $('.session-duration').text(""+$sessionLength);
+    $sessionDurationSpan.text(""+$sessionLength);
     $displayTimer.text(setDuration(""+$seconds));
-    $('.break-duration').text(""+$breakLength);
-    $('.focus').text("Session");
+    $breakDurationSpan.text(""+$breakLength);
+    $focusParagraph.text("Session");
     bindings();
   });
 
 })(jQuery);
-
-
-
-
-    // get Time from Session Element in seconds
-    // 
-    // start / stop timer by clicking on circle
-    // decrease timer every second by 1
-    // if session timer is 0, start break
-    // if break timer is 0, start next session
-    // 
-    // reset timer when clicking arrows
-    // 
-    // fast forward / "skip break" (supermode)
-    // 
-    // 
-    // 
