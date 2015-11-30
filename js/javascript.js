@@ -8,30 +8,35 @@
         $seconds = $sessionLength*60, 
         $timeRunning = false,
         $runTimer,
+        $displayTimer = $('p.time'),
         $focus = "session";
   
     // set time by clicking arrows
-    function updateBreakLength (e) {
+    function updateBreakLength () {
       var $this = $(this);
       if ($this.prop('id') == 'breakup') {
          $breakLength += 1;
       } else {
-        $breakLength -= 1;
+          if ($breakLength > 0){
+            $breakLength -= 1;
+        }
       }
-      $('.break-duration').text(""+$breakLength);
-    };
+      $('.break-duration').text(Math.max(0, $breakLength));
+    }
 
-    function updateSessionLength (e) {
+    function updateSessionLength () {
       var $this = $(this);
       if ($this.prop('id') == 'sessionup') {
          $sessionLength += 1;
       } else {
-        $sessionLength -= 1;
-      }
-      $seconds = Number($sessionLength*60);
-      $('.session-duration').text(""+$sessionLength);
-      $('p.time').text(setDuration($seconds));
-    };
+          if ($sessionLength > 0) {
+            $sessionLength -= 1;
+          }
+        }
+      $seconds = Math.max(0, $sessionLength*60);
+      $('.session-duration').text(Math.max(0, $sessionLength));
+      $displayTimer.text(setDuration($seconds));
+    }
 
     function setDuration (time) {
       var $t =  Number(time);
@@ -44,7 +49,7 @@
     }
 
     function clickOnTimer() {
-      if ($timeRunning == false){
+      if ($timeRunning === false){
         $timeRunning = true;
         $runTimer = setInterval(function() {
           updateTimer();
@@ -58,13 +63,13 @@
     }
 
     function updateTimer() {
-      $seconds -= 1;
-      $('p.time').text(setDuration($seconds)); 
-      if ($seconds == 0){
+      if ($seconds <= 0){
        toggleSession();
-       console.log($focus);
-      }   
+      }
+      $displayTimer.text(setDuration($seconds));    
+      $seconds -= 1;
     }
+
     function toggleSession() {
       if ($focus == "session") {
         $focus = "break";
@@ -73,7 +78,7 @@
          $('.focus').text("Break");
       } else {
         $focus = "session";
-        $('#countdown').css("background-color", "rgb(0,255,0)" );
+        $('#countdown').css("border", "2px solid rgb(0,255,0)" );
         $seconds = $sessionLength*60;
         $('.focus').text("Session");
       }
@@ -88,7 +93,7 @@
 
   $( document ).ready(function() {
     $('.session-duration').text(""+$sessionLength);
-    $('p.time').text(setDuration(""+$seconds));
+    $displayTimer.text(setDuration(""+$seconds));
     $('.break-duration').text(""+$breakLength);
     $('.focus').text("Session");
     bindings();
