@@ -19,9 +19,11 @@
         $focus = "session"; 
   
     // set time by clicking arrows
-    function updateBreakLength () {
+    function updateBreakLength (reset) {
       var $this = $(this);
-      if ($this.prop('id') == 'breakup') {
+      if(reset === 'reset'){
+        $breakLength = 5;
+      } else if ($this.prop('id') == 'breakup') {
          $breakLength += 1;
       } else {
           if ($breakLength > 0){
@@ -31,9 +33,11 @@
       $breakDurationSpan.text(Math.max(0, $breakLength));
     }
 
-    function updateSessionLength () {
+    function updateSessionLength (reset) {
       var $this = $(this);
-      if ($this.prop('id') == 'sessionup') {
+      if(reset === 'reset'){
+        $sessionLength = 25;
+      } else if ($this.prop('id') == 'sessionup') {
          $sessionLength += 1;
       } else {
           if ($sessionLength > 0) {
@@ -94,7 +98,11 @@
     }
 
     function reset () {
-      window.location.reload();
+      clearInterval($runTimer);
+      $timeRunning = false;
+      $focus = "session";
+      updateSessionLength('reset');
+      updateBreakLength('reset');
     }
 
     function bindings () {
