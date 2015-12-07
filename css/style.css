@@ -76,9 +76,9 @@ h1 {
 #countdown {
     margin: 0 auto;
     text-align: center;
-    width: 300px;
-    height: 300px;
-    font-size: 4em;
+    height: 250px;
+    width: 250px;
+    font-size: 3em;
     border: 2px solid rgb(0,255,0);  
     border-radius: 50%;
     cursor: pointer;

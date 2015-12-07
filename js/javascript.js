@@ -2,8 +2,7 @@
 
     "use strict"
     // set default times at 25 and 5
-    var $t, $h, $m, $s, /* variables for time units*/
-        $breakLength = 5, /*default break lenght*/
+    var $breakLength = 5, /*default break lenght*/
         $sessionLength = 25, /*default sessions length*/
         $seconds = $sessionLength*60,
         $timeRunning = false, /* timer is on hold by default*/
@@ -19,13 +18,13 @@
         $focus = "session"; 
   
     // set time by clicking arrows
-    function updateBreakLength (reset) {
+    function updateBreakLength (event) {
       var $this = $(this);
-      if(reset === 'reset'){
+      if(event === 'reset'){
         $breakLength = 5;
       } else if ($this.prop('id') == 'breakup') {
          $breakLength += 1;
-      } else {
+      } else if ($this.prop('id') == 'breakdown') {
           if ($breakLength > 0){
             $breakLength -= 1;
         }
@@ -33,13 +32,13 @@
       $breakDurationSpan.text(Math.max(0, $breakLength));
     }
 
-    function updateSessionLength (reset) {
+    function updateSessionLength (event) {
       var $this = $(this);
-      if(reset === 'reset'){
+      if(event === 'reset'){
         $sessionLength = 25;
       } else if ($this.prop('id') == 'sessionup') {
          $sessionLength += 1;
-      } else {
+      } else if ($this.prop('id') == 'sessiondown'){
           if ($sessionLength > 0) {
             $sessionLength -= 1;
           }
@@ -50,6 +49,7 @@
     }
 
     function setDuration (time) {
+      var $t, $h, $m, $s; /* variables for time units*/
       $t =  Number(time);
       $h = Math.floor($t / 3600);
       $m = Math.floor($t % 3600 / 60);
